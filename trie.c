@@ -1,4 +1,4 @@
 typedef struct {
-    double key;
-    char* value;
+    float value;
+    char* key;
 } Trie;
