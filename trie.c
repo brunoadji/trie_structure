@@ -15,9 +15,9 @@ Trie* root;
 
 //return index for hash map (order: numeric, alphabet, underline)
 int getIndex(char key) {
+    if(key == '_') return 36;
     if(key < 'a') return key - '0';
-    else if(key < '_') return key - 'a' + 10;
-    else return 36;
+    else return key - 'a' + 10;
 }
 
 Trie* createNode() {
@@ -63,8 +63,5 @@ int noChildren(Trie* node) {
 }
 
 void main() {
-    printf("Hello world!");
     root = createNode('\0');
-    root = triInsert("hello", 1.0);
-    printf("Hello world!");
 }
