@@ -7,15 +7,23 @@
 typedef struct TrieNode {
     struct TrieNode* children[SIZE];
     float value;
-    char key;
-    int isLeaf;
+    int isTerminal;
 } Trie;
 
-Trie* createNode(char key) {
+//declaring global variable for root
+Trie* root;
+
+//return index for hash map (order: numeric, alphabet, underline)
+int getIndex(char key) {
+    if(key < 'a') return key - '0';
+    else if(key < '_') return key - 'a' + 10;
+    else return 36;
+}
+
+Trie* createNode() {
     Trie* newNode = (Trie*) malloc(sizeof(Trie));
-    newNode->isLeaf = 1;
-    newNode->key = key;
-    newNode->value = -1;
+    newNode->isTerminal = 0;
+    newNode->value = 0;
 
     //starting all children as NULL
     for(int i = 0; i < SIZE; i++) {
@@ -28,26 +36,25 @@ Trie* createNode(char key) {
 Trie* triInsertRecursion(Trie* root, char* word, float value, int index) {
     //if doesn't have any other character (end of string) will just update the value
     if(word[index+1] == '\0') {
-        root->value = value;
+        if(!root->isTerminal)
+            root->value = value;
+        else return 0;
     } else {
-        for(int i = 0; i < SIZE; i++) {
-            if(root->children[i]->key == word[index]) {
-                root->children[i] = triInsertRecursion(root->children[i], word, value, index+1);
-            } else if(root->children[i] == NULL) {
-                root->children[i] = createNode(word[index]);
-                root->isLeaf = 0;
-                root->children[i] = triInsertRecursion(root->children[i], word, value, index+1);
-            }
+        int i = getIndex(word[index]);
+        if(root->children[i] == NULL) {
+            root->children[i] = createNode();
         }
+        root->children[i] = triInsertRecursion(root, word, value, index+1);
     }
     return root;
 }
 
-Trie* triInsert(Trie* root, char* word, float value) {
-    return triInsertRecursion(root, word, value, 0);
+int triInsert(char* word, float value) {
+    if(triInsertRecursion(root, word, value, 0) != NULL) return 1;
+    return 0;
 }
 
-int isLeaf(Trie* node) {
+int noChildren(Trie* node) {
     for(int i = 0; i < SIZE; i++) {
         if(node->children[i] != NULL)
             return 0;
@@ -57,7 +64,7 @@ int isLeaf(Trie* node) {
 
 void main() {
     printf("Hello world!");
-    Trie* root = createNode('\0');
-    root = triInsert(root, "hello", 1.0);
+    root = createNode('\0');
+    root = triInsert("hello", 1.0);
     printf("Hello world!");
 }
