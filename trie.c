@@ -34,10 +34,12 @@ Trie* createNode() {
 }
 
 Trie* triInsertRecursion(Trie* root, char* word, float value, int index) {
-    //if doesn't have any other character (end of string) will just update the value
-    if(word[index+1] == '\0') {
-        if(!root->isTerminal)
+    //if its end of word
+    if(word[index] == '\0') {
+        if(!root->isTerminal) {
             root->value = value;
+            root->isTerminal = 1;
+        }
         else return 0;
     } else {
         int i = getIndex(word[index]);
@@ -60,6 +62,47 @@ int noChildren(Trie* node) {
             return 0;
     }
     return 1;
+}
+
+int isNotRelevant(Trie* node) {
+    return (noChildren(node) && !node->isTerminal);
+}
+
+Trie* freeNode(Trie* node) {
+    free(node);
+    node = NULL;
+    return node;
+}
+
+Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
+    //checking if node exists
+    if(root != NULL) {
+        //found the node
+        if(key[index] == '\0') {
+            if(root->isTerminal) {
+                *success = 1;
+                root->isTerminal = 0;
+                //if node isn't relevant anymore, delete it.
+                if(isNotRelevant(root))
+                    root = freeNode(root);
+            }
+        } else {
+            int i = getIndex(key[index]);
+            root->children[i] = triRemoveRecursion(root->children[i], key, index+1, success);
+            //if one child from node have been deleted
+            if(root->children[i] == NULL) {
+                if(isNotRelevant(root))
+                    root = freeNode(root);
+            }
+        }
+    }
+    return root;
+}
+
+int triRemove(char* key) {
+    int success = 0;
+    root = triRemoveRecursion(root, key, 0, &success);
+    return success;
 }
 
 void main() {
