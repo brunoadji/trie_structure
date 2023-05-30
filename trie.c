@@ -34,10 +34,12 @@ Trie* createNode() {
 }
 
 Trie* triInsertRecursion(Trie* root, char* word, float value, int index) {
-    //if doesn't have any other character (end of string) will just update the value
-    if(word[index+1] == '\0') {
-        if(!root->isTerminal)
+    //if its end of word
+    if(word[index] == '\0') {
+        if(!root->isTerminal) {
             root->value = value;
+            root->isTerminal = 1;
+        }
         else return 0;
     } else {
         int i = getIndex(word[index]);
