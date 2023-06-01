@@ -99,6 +99,7 @@ Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
     return root;
 }
 
+//if didn't removed any key return 0, otherwise return 1
 int triRemove(char* key) {
     int success = 0;
     root = triRemoveRecursion(root, key, 0, &success);
