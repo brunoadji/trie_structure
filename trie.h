@@ -1,3 +1,3 @@
 int tri_insert(char* key, float value);
-int trie_busca(Trie* no, char* word)
-float search_key(char* key);
+int triSearch(char* word, float value);
+int triRemove(char* key);
