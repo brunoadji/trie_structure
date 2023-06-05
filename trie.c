@@ -109,18 +109,26 @@ int triRemove(char* key) {
     return success;
 }
 
-int triSearchRecursion(Trie* root, char* word, float value, int index){
-    if(root == NULL) return 0; //checa se node existe
-    if(root->isTerminal == 1 && word[index] == '\0') return 1; //condicao para palavra existir
-    int i = getIndex(word[index]); //atualiza index
-    //printf("Procurando letra %c\n", word[index]);
-    //printf("%d\n", root->isTerminal);
-    //printf("%f\n", root->value);
-    return triSearchRecursion(root->children[i], word, value, index+1); //avança para proxima letra
+Trie* triSearchRecursion(Trie* root, char* word, int index){
+    //check if node exists
+    if(root != NULL) {
+        // check if we found what we want
+        if(word[index] == '\0' && root->isTerminal == 1) {
+            return root;
+        }
+        int i = getIndex(word[index]); //update index
+        return triSearchRecursion(root->children[i], word, index+1); //keep going recursion :)
+    }
+    return NULL;
 }
 
-int triSearch(char* word, float value){
-    if(triSearchRecursion(root, word, value, 0) != NULL) return 1;
+float triSearch(char* word, float* value){
+    Trie* find;
+    find = triSearchRecursion(root, word, 0);
+    if(find != NULL) {
+        *value = find->value;
+        return 1;
+    }
     return 0;
 }
 
@@ -129,10 +137,11 @@ int main() {
     //triInsert("Flu", 3);
     triInsert("car", 42);
     triInsert("cat", 7);
-    printf("%d\n", triSearch("Flu", 3));
-    printf("%d\n", triSearch("car", 42));
-    printf("%d\n", triSearch("cat", 7));
-    printf("%d\n", triSearch("cool", 1024));
+    float value;
+    printf("%d\n", triSearch("flu", &value));
+    printf("%d\n", triSearch("car", &value));
+    printf("%d\n", triSearch("cat", &value));
+    printf("%d\n", triSearch("cool", &value));
     triRemove("car");
-    printf("%d\n", triSearch("car", 42));
+    printf("%d\n", triSearch("car", &value));
 }
