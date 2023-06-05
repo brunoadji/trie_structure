@@ -1,0 +1,79 @@
+.background {
+    width: 500px;
+    height: 500px;
+    background-color: skyblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.title {
+    margin-top: 20px;
+}
+
+.input-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.input-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.label-text {
+    text-align: center;
+}
+
+.input-text {
+    width: 300px;
+    height: 30px;
+    padding: 5px;
+}
+
+.buttons-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    width: 150px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.table-layout {
+    background-color: white;
+    width: 400px;
+    height: 300px;
+    margin-top: 20px;
+    border: 1px solid black;
+    padding: 10px;
+    overflow-y: auto;
+}
+
+.table-layout table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-layout th,
+.table-layout td {
+    border: 1px solid black;
+    padding: 8px;
+}
+
+.table-layout th {
+    background-color: lightgray;
+    text-align: left;
+}

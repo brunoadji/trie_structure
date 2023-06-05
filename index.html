@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <div id="mainScreen">
+        <div class="background">
+            <h1 class="title">Banco</h1>
+            <div class="buttons-row">
+                <button class="button" onclick="showScreenTransaction()">Transação</button>
+            </div>
+            <div class="buttons-row">
+                <button class="button" onclick="showScreenHistoric()">Mostrar Histórico</button>
+            </div>
+            <div class="buttons-row">
+                <button class="button" onclick="showScreenCreateAccount()">Criar Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screenTransaction" style="display: none;">
+        <div class="background">
+            <h1 class="title">Transação</h1>
+            <div class="input-column">
+                <div class="input-row">
+                    <label for="inputOriginAccount" class="label-text">Código da conta de origem:</label>
+                    <input type="text" id="inputOriginAccount" placeholder="Digite o código da conta de origem" class="input-text">
+                </div>
+                <div class="input-row">
+                    <label for="inputDestinyAccount" class="label-text">Código da conta de destino:</label>
+                    <input type="text" id="inputDestinyAccount" placeholder="Digite o código da conta de destino" class="input-text">
+                </div>
+                <div class="input-row">
+                    <label for="inputAmount" class="label-text">Quantidade:</label>
+                    <input type="text" id="inputAmount" placeholder="Digite a quantidade" class="input-text">
+                </div>
+            </div>
+            <div class="buttons-row">
+                <button class="button" onclick="backMainScreen()">Cancelar</button>
+                <button class="button" onclick="sendTransaction()">Enviar</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="screenCreateAccount" style="display: none;">
+        <div class="background">
+            <h1 class="title">Criar conta</h1>
+            <div class="input-column">
+                <div class="input-row">
+                    <label for="inputCodeAccount" class="label-text">Código da conta:</label>
+                    <input type="text" id="inputCodeAccount" placeholder="Digite o código da conta" class="input-text">
+                </div>
+                <div class="input-row">
+                    <label for="inputAmountDisponible" class="label-text">Quantia disponível na conta:</label>
+                    <input type="text" id="inputAmountDisponible" placeholder="Digite a quantia disponível" class="input-text">
+                </div>
+            </div>
+            <div class="buttons-row">
+                <button class="button" onclick="backMainScreen()">Cancelar</button>
+                <button class="button" onclick="createAccount()">Criar Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="screenHistoric" style="display: none;">
+        <div class="background">
+            <h1 class="title">Histórico de transações</h1>
+            <div class="table-layout">
+                <table id="tableHistoric">
+                    <thead>
+                        <tr>
+                            <th>Conta de Origem</th>
+                            <th>Conta Destino</th>
+                            <th>Quantia Transferida</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="buttons-row">
+                <button class="button" onclick="backMainScreen()">Voltar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
