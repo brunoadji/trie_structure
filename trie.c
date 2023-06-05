@@ -91,13 +91,16 @@ Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
             root->children[i] = triRemoveRecursion(root->children[i], key, index+1, success);
             //if one child from node have been deleted
             if(root->children[i] == NULL) {
-                if(isNotRelevant(root))
+                if(isNotRelevant(root)){
+                    printf("Removendo no %c", key[index]);
                     root = freeNode(root);
+                }
             }
         }
     }
     return root;
 }
+
 
 //if didn't removed any key return 0, otherwise return 1
 int triRemove(char* key) {
@@ -106,6 +109,30 @@ int triRemove(char* key) {
     return success;
 }
 
-void main() {
+int triSearchRecursion(Trie* root, char* word, float value, int index){
+    if(root == NULL) return 0; //checa se node existe
+    if(root->isTerminal == 1 && word[index] == '\0') return 1; //condicao para palavra existir
+    int i = getIndex(word[index]); //atualiza index
+    //printf("Procurando letra %c\n", word[index]);
+    //printf("%d\n", root->isTerminal);
+    //printf("%f\n", root->value);
+    return triSearchRecursion(root->children[i], word, value, index+1); //avança para proxima letra
+}
+
+int triSearch(char* word, float value){
+    if(triSearchRecursion(root, word, value, 0) != NULL) return 1;
+    return 0;
+}
+
+int main() {
     root = createNode('\0');
+    //triInsert("Flu", 3);
+    triInsert("car", 42);
+    triInsert("cat", 7);
+    printf("%d\n", triSearch("Flu", 3));
+    printf("%d\n", triSearch("car", 42));
+    printf("%d\n", triSearch("cat", 7));
+    printf("%d\n", triSearch("cool", 1024));
+    triRemove("car");
+    printf("%d\n", triSearch("car", 42));
 }
