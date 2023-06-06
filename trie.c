@@ -69,8 +69,10 @@ int isNotRelevant(Trie* node) {
 }
 
 Trie* freeNode(Trie* node) {
-    free(node);
-    node = NULL;
+    if(isNotRelevant(node)) {
+        free(node);
+        node = NULL;
+    }
     return node;
 }
 
@@ -83,18 +85,15 @@ Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
                 *success = 1;
                 root->isTerminal = 0;
                 //if node isn't relevant anymore, delete it.
-                if(isNotRelevant(root))
-                    root = freeNode(root);
+                root = freeNode(root);
             }
         } else {
             int i = getIndex(key[index]);
             root->children[i] = triRemoveRecursion(root->children[i], key, index+1, success);
             //if one child from node have been deleted
             if(root->children[i] == NULL) {
-                if(isNotRelevant(root)){
-                    printf("Removendo no %c", key[index]);
-                    root = freeNode(root);
-                }
+                printf("Removendo no %c", key[index]);
+                root = freeNode(root);
             }
         }
     }
