@@ -1,0 +1,23 @@
+1 - Análise das operações da estrutura Trie
+    - Análise do algoritmo de inserção.
+    - Análise do algoritmo de remoção.
+    - Análise do algoritmo de busca.
+
+2 - Implementação da Trie
+    - Testes da inserção.
+    - Testes da remoção.
+    - Testes da busca.
+
+3 - Implementação do servidor Python e do cliente web
+    - Chamada do python para o C.
+    - Escutar uma porta no python e executar de acordo com o que for pedido.
+    - Enviar resposta de volta para a porta.
+    - Enviar dados do javascript para uma porta.
+    - Receber dados da resposta.
+
+
+4 - Entrega
+    - Preparação dos slides
+    - Entrega do github
+    - Entrega do slide
+    - Entrega das análises
