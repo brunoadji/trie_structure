@@ -76,6 +76,22 @@ Trie* freeNode(Trie* node) {
     return node;
 }
 
+Trie* freeTrie(Trie* node) {
+    if(node != NULL) {
+        node->isTerminal = 1;
+        for(int i = 0; i < SIZE; i++) {
+            node->children[i] = freeTrie(node->children[i]);
+        }
+        node = freeNode(node);
+    }
+    return node;
+}
+
+cleanTrie() {
+    root = freeTrie(root);
+    root = createNode();
+}
+
 Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
     //checking if node exists
     if(root != NULL) {
@@ -132,7 +148,7 @@ float triSearch(char* word, float* value){
 }
 
 int main() {
-    root = createNode('\0');
+    root = createNode();
     //triInsert("Flu", 3);
     triInsert("car", 42);
     triInsert("cat", 7);
