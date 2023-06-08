@@ -46,7 +46,7 @@ Trie* triInsertRecursion(Trie* root, char* word, float value, int index) {
         if(root->children[i] == NULL) {
             root->children[i] = createNode();
         }
-        root->children[i] = triInsertRecursion(root, word, value, index+1);
+        root->children[i] = triInsertRecursion(root->children[i], word, value, index+1);
     }
     return root;
 }
@@ -78,7 +78,7 @@ Trie* freeNode(Trie* node) {
 
 Trie* freeTrie(Trie* node) {
     if(node != NULL) {
-        node->isTerminal = 1;
+        node->isTerminal = 0;
         for(int i = 0; i < SIZE; i++) {
             node->children[i] = freeTrie(node->children[i]);
         }
@@ -87,7 +87,7 @@ Trie* freeTrie(Trie* node) {
     return node;
 }
 
-cleanTrie() {
+void cleanTrie() {
     root = freeTrie(root);
     root = createNode();
 }
@@ -108,7 +108,6 @@ Trie* triRemoveRecursion(Trie* root, char* key, int index, int* success) {
             root->children[i] = triRemoveRecursion(root->children[i], key, index+1, success);
             //if one child from node have been deleted
             if(root->children[i] == NULL) {
-                printf("Removendo no %c", key[index]);
                 root = freeNode(root);
             }
         }
@@ -128,7 +127,7 @@ Trie* triSearchRecursion(Trie* root, char* word, int index){
     //check if node exists
     if(root != NULL) {
         // check if we found what we want
-        if(word[index] == '\0' && root->isTerminal == 1) {
+        if(word[index] == '\0') {
             return root;
         }
         int i = getIndex(word[index]); //update index
@@ -137,26 +136,55 @@ Trie* triSearchRecursion(Trie* root, char* word, int index){
     return NULL;
 }
 
-float triSearch(char* word, float* value){
+int triSearch(char* word, float* value){
     Trie* find;
     find = triSearchRecursion(root, word, 0);
     if(find != NULL) {
+        if(!find->isTerminal) return 0;
         *value = find->value;
         return 1;
     }
     return 0;
 }
 
+Trie* updateTrieRecursion(Trie* node, char* word, float newValue, int index, int* success) {
+    if(node != NULL) {
+        //check if the word is in the end
+        if(word[index] == '\0') {
+            //check if the node is actually a terminal node
+            if(node->isTerminal) {
+                node->value = newValue;
+                *success = 1;
+            }
+        } else {
+            int i = getIndex(word[index]);
+            node->children[i] = updateTrieRecursion(node->children[i], word, newValue, index+1, success); //going to the next char on the word :)
+        }
+    }
+    return node;
+}
+
+int updateTrie(char* word, float newValue) {
+    int success = 0;
+    updateTrieRecursion(root, word, newValue, 0, &success);
+    return success;
+}
+
 int main() {
     root = createNode();
-    //triInsert("Flu", 3);
     triInsert("car", 42);
-    triInsert("cat", 7);
+    triInsert("tri", 7.0);
     float value;
-    printf("%d\n", triSearch("flu", &value));
-    printf("%d\n", triSearch("car", &value));
-    printf("%d\n", triSearch("cat", &value));
-    printf("%d\n", triSearch("cool", &value));
-    triRemove("car");
-    printf("%d\n", triSearch("car", &value));
+    printf("%d\n", triSearch("tri", &value)); //Deve printar 1
+    printf("%f\n", value); //Deve printar 7.0
+    printf("%d\n", triSearch("ca", &value)); //Deve printar 0
+    printf("%f\n", value); //Deve printar 7.0
+    updateTrie("tri", 8.0);
+    printf("%d\n", triSearch("tri", &value)); //Deve printar 1
+    printf("%f\n", value); //Deve printar 8.0
+    triRemove("tri");
+    printf("%d\n", triSearch("tri", &value)); //Deve printar 0
+    printf("%f\n", value); //Deve printar 8.0
+    printf("%d\n", triSearch("car", &value)); //Deve printar 1
+    printf("%f\n", value); //Deve printar 42.0
 }
