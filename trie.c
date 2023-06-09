@@ -188,3 +188,17 @@ int main() {
     printf("%d\n", triSearch("car", &value)); //Deve printar 1
     printf("%f\n", value); //Deve printar 42.0
 }
+
+/*
+    Expected results:
+    1
+    7.0
+    0
+    7.0
+    1
+    8.0
+    0
+    8.0
+    1
+    42.0
+*/
