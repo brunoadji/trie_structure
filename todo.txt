@@ -12,8 +12,7 @@
     - Chamada do python para o C.
     - Escutar uma porta no python e executar de acordo com o que for pedido.
     - Enviar resposta de volta para a porta.
-    - Enviar dados do javascript para uma porta.
-    - Receber dados da resposta.
+    - Gerar histórico (verificar se pode armazenar uma lista de transações e recuperar valores ou precisa buscar tudo na Trie)
 
 
 4 - Entrega
