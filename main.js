@@ -9,19 +9,20 @@ function showScreenHistoric() {
 }
 
 function backMainScreen() {
-    limparCamposCriarConta();
+    cleanCreateAccount();
+    cleanSendData();
     document.getElementById("screenCreateAccount").style.display = "none";
     document.getElementById("screenHistoric").style.display = "none";
     document.getElementById("screenTransaction").style.display = "none";
     document.getElementById("mainScreen").style.display = "block";
 }
 
-function limparCamposCriarConta() {
+function cleanCreateAccount() {
     document.getElementById("inputCodeAccount").value = "";
     document.getElementById("inputAmountDisponible").value = "";
 }
 
-function limparCamposEnviarDados() {
+function cleanSendData() {
     document.getElementById("inputOriginAccount").value = "";
     document.getElementById("inputDestinyAccount").value = "";
     document.getElementById("inputAmount").value = "";
@@ -31,7 +32,20 @@ function createAccount() {
     backMainScreen();
 }
 
-function sendTransaction() {
+async function sendTransaction() {
+    let type = "transaction";
+    let originAccount = document.getElementById("inputOriginAccount").value;
+    let destinyAccount = document.getElementById("inputDestinyAccount").value;
+    let amount = document.getElementById("inputAmount").value;
+
+    if(isNaN(amount))
+        return alert("Erro: É necessário a quantia a ser transferida ser um número.");
+
+    if(originAccount == "" || destinyAccount == "" || amount == "")
+        return alert("Erro: É necessário preencher todos os campos.");
+
+    let res = await post({"type": type, "from": originAccount, "to": destinyAccount, "amount": amount}, 'POST');
+    console.log(res);
     backMainScreen();
 }
 
@@ -52,4 +66,28 @@ function insertHistoric(originAccount, destinyAccount, amount) {
 function showScreenTransaction() {
     document.getElementById("mainScreen").style.display = "none";
     document.getElementById("screenTransaction").style.display = "block";
+}
+
+
+async function post(data, method) {
+    let res = "";
+    await fetch("http://127.0.0.1:5000/receiver", 
+        {
+            method: method,
+            headers: {
+                'Content-type': 'application/json',
+                'Accept': 'application/json'
+            },
+
+        body:JSON.stringify(data)}).then(res=>{
+                if(res.ok){
+                    return res.json();
+                }else{
+                    alert("something is wrong");
+                }
+            }).then(jsonResponse=>{
+                res = jsonResponse;
+            } 
+            ).catch((err) => console.error(err));
+    return res;
 }
