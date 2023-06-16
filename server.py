@@ -15,7 +15,7 @@ def postME():
         res = "Transferindo de " + data["from"] + " para " + data["to"] + " a quantidade de " + data["amount"]
     
     if data["type"] == "create":
-        res = "Criando a conta " + data["account"] + " com o saldo de " + data["amonut"]
+        res = "Criando a conta " + data["account"] + " com o saldo de " + data["amount"]
 
     return jsonify(res)
 
