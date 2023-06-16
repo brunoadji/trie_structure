@@ -35,7 +35,7 @@ function sendTransaction() {
     backMainScreen();
 }
 
-function inserirDadosHistorico(originAccount, destinyAccount, amount) {
+function insertHistoric(originAccount, destinyAccount, amount) {
     let table = document.getElementById("tableHistoric");
 
     let newLine = table.insertRow();
