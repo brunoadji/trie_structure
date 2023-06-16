@@ -35,18 +35,18 @@ function sendTransaction() {
     backMainScreen();
 }
 
-function inserirDadosHistorico(contaOrigem, contaDestino, quantia) {
-    let tabela = document.getElementById("tableHistoric");
+function inserirDadosHistorico(originAccount, destinyAccount, amount) {
+    let table = document.getElementById("tableHistoric");
 
-    let novaLinha = tabela.insertRow();
+    let newLine = table.insertRow();
 
-    let colunaOrigem = novaLinha.insertCell();
-    let colunaDestino = novaLinha.insertCell();
-    let colunaQuantia = novaLinha.insertCell();
+    let originColumn = newLine.insertCell();
+    let destinyColumn = newLine.insertCell();
+    let amountColumn = newLine.insertCell();
 
-    colunaOrigem.textContent = contaOrigem;
-    colunaDestino.textContent = contaDestino;
-    colunaQuantia.textContent = quantia;
+    originColumn.textContent = originAccount;
+    destinyColumn.textContent = destinyAccount;
+    amountColumn.textContent = amount;
 }
 
 function showScreenTransaction() {
