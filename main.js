@@ -28,7 +28,19 @@ function cleanSendData() {
     document.getElementById("inputAmount").value = "";
 }
 
-function createAccount() {
+async function createAccount() {
+    let type = "create"
+    let account = document.getElementById("inputCodeAccount").value;
+    let amount = document.getElementById("inputAmountDisponible").value;
+
+    if(isNaN(amount)) 
+        return alert("Erro: É necessário que a quantia na conta seja um número.");
+    
+    if(account == "" || amount == "")
+        return alert("Erro: É necessário preencher todos os campos.");
+
+    let res = await post({"type": type, "account": account, "amount": amount}, 'POST');
+    console.log(res);
     backMainScreen();
 }
 
@@ -39,7 +51,7 @@ async function sendTransaction() {
     let amount = document.getElementById("inputAmount").value;
 
     if(isNaN(amount))
-        return alert("Erro: É necessário a quantia a ser transferida ser um número.");
+        return alert("Erro: É necessário que a quantia a ser transferida seja um número.");
 
     if(originAccount == "" || destinyAccount == "" || amount == "")
         return alert("Erro: É necessário preencher todos os campos.");
