@@ -4,6 +4,7 @@
     - Análise do algoritmo de busca.
 
 2 - Implementação da Trie
+    - Retornar todas as transações efetuadas
     - Testes da inserção.
     - Testes da remoção.
     - Testes da busca.
