@@ -12,12 +12,18 @@ def post():
     print(data["type"])
 
     if data["type"] == "transaction":
-        res = "Transferindo de " + data["from"] + " para " + data["to"] + " a quantidade de " + data["amount"]
+        res = transaction(data["from"], data["to"], data["amount"])
 
     if data["type"] == "create":
-        res = "Criando a conta " + data["account"] + " com o saldo de " + data["amount"]
+        res = create(data["account"], data["amount"])
 
     return jsonify(res)
+
+def transaction(originAccount, destinyAccount, amount):
+    return "Transferindo de \"" + originAccount + "\" para \"" + destinyAccount + "\" a quantia de " + amount
+
+def create(newAccount, amount):
+    return "Criando a conta \"" + newAccount + "\" com o saldo de " + amount
 
 if __name__ == "__main__":
     app.run()
