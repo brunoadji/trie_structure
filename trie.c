@@ -147,7 +147,7 @@ int triSearch(char* word, float* value){
     return 0;
 }
 
-Trie* updateTrieRecursion(Trie* node, char* word, float newValue, int index, int* success) {
+Trie* triUpdateRecursion(Trie* node, char* word, float newValue, int index, int* success) {
     if(node != NULL) {
         //check if the word is in the end
         if(word[index] == '\0') {
@@ -158,15 +158,15 @@ Trie* updateTrieRecursion(Trie* node, char* word, float newValue, int index, int
             }
         } else {
             int i = getIndex(word[index]);
-            node->children[i] = updateTrieRecursion(node->children[i], word, newValue, index+1, success); //going to the next char on the word :)
+            node->children[i] = triUpdateRecursion(node->children[i], word, newValue, index+1, success); //going to the next char on the word :)
         }
     }
     return node;
 }
 
-int updateTrie(char* word, float newValue) {
+int triUpdate(char* word, float newValue) {
     int success = 0;
-    updateTrieRecursion(root, word, newValue, 0, &success);
+    triUpdateRecursion(root, word, newValue, 0, &success);
     return success;
 }
 
@@ -179,7 +179,7 @@ int main() {
     printf("%f\n", value); //Deve printar 7.0
     printf("%d\n", triSearch("ca", &value)); //Deve printar 0
     printf("%f\n", value); //Deve printar 7.0
-    updateTrie("tri", 8.0);
+    triUpdate("tri", 8.0);
     printf("%d\n", triSearch("tri", &value)); //Deve printar 1
     printf("%f\n", value); //Deve printar 8.0
     triRemove("tri");
