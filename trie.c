@@ -128,7 +128,9 @@ Trie* triSearchRecursion(Trie* root, char* word, int index){
     if(root != NULL) {
         // check if we found what we want
         if(word[index] == '\0') {
-            return root;
+            if(root->isTerminal)
+                return root;
+            return NULL;
         }
         int i = getIndex(word[index]); //update index
         return triSearchRecursion(root->children[i], word, index+1); //keep going recursion :)
@@ -140,7 +142,6 @@ int triSearch(char* word, float* value){
     Trie* find;
     find = triSearchRecursion(root, word, 0);
     if(find != NULL) {
-        if(!find->isTerminal) return 0;
         *value = find->value;
         return 1;
     }
