@@ -4,7 +4,8 @@ from ctypes import *
 
 app = Flask(__name__)
 cors = CORS(app)
-trie = CDLL("./trie.so")
+trie = cdll.LoadLibrary("./trie.so")
+trie.triInsert.args = [c_char_p, c_float]
 
 @app.route("/receiver", methods=["POST"])
 def post():
