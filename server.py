@@ -4,6 +4,7 @@ from ctypes import *
 
 app = Flask(__name__)
 cors = CORS(app)
+trie = CDLL("./trie.so")
 
 @app.route("/receiver", methods=["POST"])
 def post():
@@ -23,7 +24,10 @@ def transaction(originAccount, destinyAccount, amount):
     return "Transferindo de \"" + originAccount + "\" para \"" + destinyAccount + "\" a quantia de " + amount
 
 def create(newAccount, amount):
-    return "Criando a conta \"" + newAccount + "\" com o saldo de " + amount
+    success = trie.triInsert(newAccount, amount)
+    if(success == 1):
+        return "Criando a conta \"" + newAccount + "\" com o saldo de " + amount
+    return "Erro: Não foi possivel criar a conta"
 
 if __name__ == "__main__":
     app.run()
