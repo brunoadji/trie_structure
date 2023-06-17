@@ -154,7 +154,7 @@ int triUpdate(char* word, float newValue) {
     return 1;
 }
 
-int main() {
+void main() {
     root = createNode();
     triInsert("car", 42);
     triInsert("tri", 7.0);
