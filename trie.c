@@ -2,6 +2,7 @@
 //amount of characters allowed
 #include <stdio.h>
 #include <stdlib.h>
+#include "trie.h"
 #define SIZE 37
 
 typedef struct TrieNode {
