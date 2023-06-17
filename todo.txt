@@ -2,6 +2,8 @@
     - Análise do algoritmo de inserção.
     - Análise do algoritmo de remoção.
     - Análise do algoritmo de busca.
+    - Análise do algoritmo de atualização
+    - Análise do algoritmo de listagem
 
 2 - Implementação da Trie
     - Retornar todas as transações efetuadas
