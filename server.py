@@ -27,11 +27,11 @@ def transaction(originAccount, destinyAccount, amount):
 
 def create(newAccount, amount):
     print(newAccount)
-    var1 = c_char_p(newAccount.encode())
+    var1 = newAccount.encode()
     print(var1)
     var2 = c_float(float(amount))
     print(var2)
-    success = trie.triInsert(c_char_p(newAccount.encode()), c_float(float(amount)))
+    success = trie.triInsert(var1, var2)
     if(success == 1):
         return "Criando a conta \"" + newAccount + "\" com o saldo de " + amount
     return "Erro: Não foi possivel criar a conta"
