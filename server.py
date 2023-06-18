@@ -26,6 +26,7 @@ def transaction(originAccount, destinyAccount, amount):
     return "Transferindo de \"" + originAccount + "\" para \"" + destinyAccount + "\" a quantia de " + amount
 
 def create(newAccount, amount):
+    print(newAccount)
     var1 = c_char_p(newAccount)
     print(var1)
     var2 = c_float(float(amount))
