@@ -27,7 +27,8 @@ def transaction(originAccount, destinyAccount, amount):
 
 def create(newAccount, amount):
     print(newAccount)
-    var1 = newAccount.encode()
+    var1 = create_string_buffer(100)
+    var1.value = newAccount.encode()
     print(var1)
     var2 = c_float(float(amount))
     print(var2)
