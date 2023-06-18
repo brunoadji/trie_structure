@@ -26,7 +26,7 @@ def transaction(originAccount, destinyAccount, amount):
     return "Transferindo de \"" + originAccount + "\" para \"" + destinyAccount + "\" a quantia de " + amount
 
 def create(newAccount, amount):
-    success = trie.triInsert(newAccount, amount)
+    success = trie.triInsert(c_char_p(newAccount), c_float(float(amount)))
     if(success == 1):
         return "Criando a conta \"" + newAccount + "\" com o saldo de " + amount
     return "Erro: Não foi possivel criar a conta"
